@@ -391,6 +391,32 @@
               </td>
             </tr>
           </tbody></table>
+          <div id="visit-stats" class="visit-stats">
+            Tracking visitor stats...
+          </div>
+          <script>
+            (function() {
+              const statsEl = document.getElementById('visit-stats');
+              async function loadVisitorStats() {
+                try {
+                  const [countRes, locationRes] = await Promise.all([
+                    fetch('https://api.countapi.xyz/hit/haitongw-website/pageviews'),
+                    fetch('https://ipapi.co/json/')
+                  ]);
+                  const countData = await countRes.json();
+                  const locationData = await locationRes.json();
+                  const totalViews = countData.value?.toLocaleString?.() || countData.value || 'N/A';
+                  const city = locationData.city || 'Unknown city';
+                  const country = locationData.country_name || locationData.country || 'Unknown country';
+                  statsEl.textContent = `Total page views: ${totalViews} • You're visiting from ${city}, ${country}`;
+                } catch (err) {
+                  console.error('Visitor stats error:', err);
+                  statsEl.textContent = 'Visitor stats are temporarily unavailable.';
+                }
+              }
+              loadVisitorStats();
+            })();
+          </script>
         </td>
       </tr>
     </table>
