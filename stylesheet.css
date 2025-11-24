@@ -151,12 +151,3 @@ tr.highlight {
     display: inline-block;
     border-radius: 10px;
 }
-
-.visit-stats {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 16px;
-  text-align: center;
-  font-size: 13px;
-  color: #555555;
-}
